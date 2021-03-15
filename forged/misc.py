@@ -5,6 +5,41 @@ import numpy as np
 from lined.tools import deiterize
 
 
+def call_repeatedly(func, *args, **kwargs):
+    """Call func(*args, **kwargs) ad infinitum
+
+    :param func: A callable
+    :param args: args to call func with
+    :param kwargs: kwargs to call func with
+    :return: infinite generator of func(*args, **kwargs) outputs
+
+    >>> from itertools import islice
+    >>> from random import randint
+    >>> never_ending_int_generator = call_repeatedly(randint, 0, 9)
+    >>> # then... consume for ever, or just ask for a slice
+    >>> from itertools import islice
+    >>> t = list(islice(never_ending_int_generator, 7))  # example: [7, 7, 6, 1, 2, 8, 1]
+    >>> len(t)
+    7
+    >>> assert all(0 <= x <= 9 for x in t)
+
+    >>> def my_context_sensitive_func(context):
+    ...     return context['current_center'] + randint(-2, 2)
+    >>> context = {'current_center': 0}
+    >>> never_ending_int_generator = call_repeatedly(my_context_sensitive_func, context)
+    >>>
+    >>> t = list(islice(never_ending_int_generator, 7))  # example: [-1, -2, -1, -1, 2, -2, 0]
+    >>> assert len(t) == 7 and all(-2 <= x <= 2 for x in t)
+    >>> context['current_center'] = 10
+    >>> t = list(islice(never_ending_int_generator, 9))  # example: [11, 10, 9, 9, 9, 8, 12, 10, 8]
+    >>> assert len(t) == 9 and all(8 <= x <= 12 for x in t)
+
+
+    """
+    while True:
+        yield func(*args, **kwargs)
+
+
 def in_box(X, box):
     """Get a boolean array indicating whether points X are within a given box
 
