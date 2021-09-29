@@ -55,9 +55,9 @@ def test_segment_on_condition():
     assert result == expected
 
 def test_segment_on_condition_with_timer():
-    condition = lambda x:x=='x'
-    stream ='abdcxcccdeefxaaassaaxsss'
+    condition = lambda x, y: x == 'x'
+    stream = 'abdcxcccdeefxaaassaaxsss'
     timer = 3
-    result = segment_on_condition_with_timer(stream, condition, timer)
-    expected = [[1, 2, 3, 3], [2, 5], [2, 4], [2]]
+    result = list(segment_on_condition_with_timer(stream, condition, timer))
+    expected = [['a', 'b', 'd'], ['c', 'c', 'c'], ['a', 'a', 'a'], ['s', 's', 's']]
     assert result == expected
