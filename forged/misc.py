@@ -69,26 +69,32 @@ def in_box(X, box):
     MAXS_ROW_IDX = 1
     X, box = map(np.array, (X, box))
     n_rows_in_box_matrix, ndims = box.shape
-    assert n_rows_in_box_matrix == 2, "box must have 2 rows only: [0] the min point and [1] the max point of the box"
-    assert X.shape[1] == ndims, f"ndims of X should be aligned with box's ({ndims}): Was {X.shape[1]}"
+    assert (
+        n_rows_in_box_matrix == 2
+    ), 'box must have 2 rows only: [0] the min point and [1] the max point of the box'
+    assert (
+        X.shape[1] == ndims
+    ), f"ndims of X should be aligned with box's ({ndims}): Was {X.shape[1]}"
     return np.all((box[MINS_ROW_IDX, :] <= X) & (X <= box[MAXS_ROW_IDX, :]), axis=1)
 
 
 point_in_box = deiterize(in_box)
-point_in_box.__doc__ = """
+point_in_box.__doc__ = '''
 Single point version of in_box function.
 
 >>> point_in_box([0, 1, 2], box=[[1, 2, 3], [6, 7, 8]])
 False
 >>> point_in_box([3, 4, 5], box=[[1, 2, 3], [6, 7, 8]])
 True
-"""
+'''
 
 
-def random_points_not_in_box(npts=100,
-                             universe_box=((0,) * 3, (10,) * 3),
-                             forbidden_box=((0, 1, 2), (3, 4, 5)),
-                             max_search=int(1e6)):
+def random_points_not_in_box(
+    npts=100,
+    universe_box=((0,) * 3, (10,) * 3),
+    forbidden_box=((0, 1, 2), (3, 4, 5)),
+    max_search=int(1e6),
+):
     """Get some random points that are contained in the universe_box but not in the forbidden_box
 
     >>> universe_box = ((0,) * 3, (10,) * 3)
@@ -108,7 +114,9 @@ def random_points_not_in_box(npts=100,
     _, n_dims = universe_box.shape
     universe_min, universe_max = universe_box[0, :].min(), universe_box[1, :].max()
 
-    rand_pt = lambda: np.random.uniform(low=universe_min, high=universe_max, size=(1, n_dims))[0]
+    rand_pt = lambda: np.random.uniform(
+        low=universe_min, high=universe_max, size=(1, n_dims)
+    )[0]
     pt_iterator = (rand_pt() for _ in range(max_search))
     is_in_universe = partial(point_in_box, box=universe_box)
     is_forbidden = partial(point_in_box, box=forbidden_box)
@@ -116,7 +124,9 @@ def random_points_not_in_box(npts=100,
     def gen():
         c = 0
         while c < npts:
-            pt = next(filter(lambda x: is_in_universe(x) and not is_forbidden(x), pt_iterator))
+            pt = next(
+                filter(lambda x: is_in_universe(x) and not is_forbidden(x), pt_iterator)
+            )
             yield pt
             c += 1
 
@@ -160,13 +170,23 @@ def mk_blobs(n_samples=100, n_features=3, centers=2, **blobs_kwargs):
     """
     wrapper for make_blobs
     """
-    X, y = make_blobs(n_samples=n_samples, n_features=n_features, centers=centers, **blobs_kwargs)
+    X, y = make_blobs(
+        n_samples=n_samples, n_features=n_features, centers=centers, **blobs_kwargs
+    )
     y = np.array(list(map(str, y)))
     return X, y
 
 
-def test_on_blobs(model_cls, deserialize_model_cls=None, min_accuracy=1.0, verbose=False,
-                  n_samples=100, n_features=3, centers=2, **blobs_kwargs):
+def test_on_blobs(
+    model_cls,
+    deserialize_model_cls=None,
+    min_accuracy=1.0,
+    verbose=False,
+    n_samples=100,
+    n_features=3,
+    centers=2,
+    **blobs_kwargs,
+):
     """randomly select data, fit a model, and assert a minimum accuracy.
     Also make sure jdict serialization and deserialization works (if deserialize_model_cls is given)
 
@@ -190,15 +210,20 @@ def test_on_blobs(model_cls, deserialize_model_cls=None, min_accuracy=1.0, verbo
     >>> test_on_blobs(LogisticRegressionCV(cv=5), min_accuracy=.9, n_samples=1000, n_features=6, centers=5)
     """
     import os
+
     try:
         import dill
     except ImportError:
         dill = type('fake_dill', (object,), {'dump': lambda x, y: None})
 
     if verbose:
-        print(f"{model_cls} - {deserialize_model_cls} - {dict(min_accuracy=min_accuracy, **blobs_kwargs)}")
+        print(
+            f'{model_cls} - {deserialize_model_cls} - {dict(min_accuracy=min_accuracy, **blobs_kwargs)}'
+        )
 
-    X, y = mk_blobs(n_samples=n_samples, n_features=n_features, centers=centers, **blobs_kwargs)
+    X, y = mk_blobs(
+        n_samples=n_samples, n_features=n_features, centers=centers, **blobs_kwargs
+    )
 
     if isinstance(model_cls, type):
         m = model_cls()
@@ -208,17 +233,20 @@ def test_on_blobs(model_cls, deserialize_model_cls=None, min_accuracy=1.0, verbo
     m.fit(X, y)
     accuracy = np.sum(m.predict(X) == y) / len(y)
     try:
-        assert accuracy >= min_accuracy, f"Accuracy: {accuracy} < {min_accuracy}"
+        assert accuracy >= min_accuracy, f'Accuracy: {accuracy} < {min_accuracy}'
         if deserialize_model_cls is not None:
             if deserialize_model_cls is True:  # just take the model_cls
                 deserialize_model_cls = model_cls
             m_jdict = m.to_jdict()
             m_jdict_m = deserialize_model_cls.from_jdict(m_jdict)
-            assert np.all(m.predict(X) == m_jdict_m.predict(X)), \
-                "some predictions weren't the same after deserialization"
+            assert np.all(
+                m.predict(X) == m_jdict_m.predict(X)
+            ), "some predictions weren't the same after deserialization"
 
     except:
         save_filepath = os.path.abspath('test_on_blobs.p')
-        print(f"--> To see the data, do: import dill; m, X, y = dill.load(open('{save_filepath}', 'rb'))")
+        print(
+            f"--> To see the data, do: import dill; m, X, y = dill.load(open('{save_filepath}', 'rb'))"
+        )
         dill.dump((m, X, y), open('test_on_blobs.p', 'bw'))
         raise
