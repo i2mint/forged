@@ -1,3 +1,8 @@
+"""
+Utils to create synthetic streams with drifts
+"""
+
+
 import numpy as np
 
 
