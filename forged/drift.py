@@ -16,4 +16,7 @@ dist_c = random_state.normal(0.6, 0.1, 1000)
 dflt_stream = np.concatenate((dist_a, dist_b, dist_c))
 
 def simple_shift_drift():
+    """
+    distribution with 2 shifts
+    """
     return dflt_stream 
