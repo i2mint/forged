@@ -1,3 +1,7 @@
+"""
+Misc utils
+"""
+
 from functools import partial
 from sklearn.datasets import make_blobs
 import numpy as np
@@ -153,6 +157,9 @@ def tag_data(data, data_to_tag):
 
 
 def mk_blobs(n_samples=100, n_features=3, centers=2, **blobs_kwargs):
+    """
+    wrapper for make_blobs
+    """
     X, y = make_blobs(n_samples=n_samples, n_features=n_features, centers=centers, **blobs_kwargs)
     y = np.array(list(map(str, y)))
     return X, y
