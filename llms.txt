@@ -1,0 +1,23 @@
+# forged
+
+> Tools for data generation
+
+
+## Pages
+
+- [forged](index.html.md): Tools for data generation
+- [API reference](api.html.md): | &#96;forged&#96;   | Utils for streams generation   |
+- [forged](_autosummary/forged.html.md): Utils for streams generation
+- [forged.categories](_autosummary/forged.categories.html.md): Contains sets of values for different categories that can be used to generate data
+- [forged.drift](_autosummary/forged.drift.html.md): Utils to create synthetic streams with drifts
+- [forged.misc](_autosummary/forged.misc.html.md): | &#96;call_repeatedly&#96;(func, &#92;&#42;args, &#92;&#42;&#92;&#42;kwargs)   | Call func(&#92;&#42;args, &#92;&#42;&#92;&#42;kwargs) ad infinitum        ...
+- [forged.strings](_autosummary/forged.strings.html.md): Functions to generate strings
+- [About this build](about-this-build.html.md): This documentation was built on &#42;&#42;2026-11-22 22:47 UTC&#42;&#42; from commit &lt;a href="https://github.com/i2m...
+
+## Optional
+
+- [forged.md](forged.md): Complete documentation in a single file.
+
+## Build
+
+- [build_info.json](build_info.json): build provenance (commit, version, tool versions, whether the docs match the package)

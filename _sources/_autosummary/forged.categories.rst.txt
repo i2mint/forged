@@ -1,0 +1,6 @@
+forged.categories
+=================
+
+.. automodule:: forged.categories
+
+   

@@ -1,0 +1,17 @@
+forged.misc
+===========
+
+.. automodule:: forged.misc
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      call_repeatedly
+      in_box
+      mk_blobs
+      random_points_not_in_box
+      tag_data
+      test_on_blobs
+   

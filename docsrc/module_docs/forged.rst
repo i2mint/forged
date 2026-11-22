@@ -1,4 +1,0 @@
-forged
-======
-.. automodule:: forged
-   :members:

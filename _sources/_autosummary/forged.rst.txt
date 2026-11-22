@@ -1,0 +1,17 @@
+﻿forged
+======
+
+.. automodule:: forged
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   categories
+   clickify
+   drift
+   misc
+   strings

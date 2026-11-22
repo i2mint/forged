@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "built_at": "2026-11-22T22:47:38Z",
+  "package": {
+    "name": "forged",
+    "version": "0.1.1",
+    "display_name": "forged",
+    "source": "pyproject.toml"
+  },
+  "git": {
+    "available": true,
+    "commit": "7d2b12a12151b091a7d610fa667853a081b788ab",
+    "short_commit": "7d2b12a",
+    "branch": "master",
+    "tags": [],
+    "dirty": false,
+    "remote_url": "https://github.com/i2mint/forged",
+    "commit_url": "https://github.com/i2mint/forged/commit/7d2b12a12151b091a7d610fa667853a081b788ab",
+    "error": null
+  },
+  "ci": {
+    "provider": "github",
+    "repository": "i2mint/forged",
+    "sha": "7d2b12a12151b091a7d610fa667853a081b788ab",
+    "sha_in_history": true,
+    "ref": "refs/heads/master",
+    "ref_name": "master",
+    "run_id": "45079503073",
+    "run_url": "https://github.com/i2mint/forged/actions/runs/45079503073",
+    "server_url": "https://github.com"
+  },
+  "tools": {
+    "epythet": "0.2.23",
+    "sphinx": "9.1.1",
+    "docutils": "0.22.4",
+    "python": "3.12.16"
+  },
+  "config": {
+    "theme": "auto",
+    "html_theme": "pydata_sphinx_theme",
+    "accent": "#883468",
+    "mode": "auto",
+    "api_generator": "autosummary",
+    "ignore": [
+      "tests/",
+      "scrap/",
+      "examples/"
+    ],
+    "agent_outputs": true,
+    "aggregates": [
+      "md"
+    ],
+    "ai_artifacts": true,
+    "provenance": true,
+    "docs_dir": "docsrc"
+  },
+  "site": {
+    "modules_documented": 5,
+    "objects_documented": 22
+  },
+  "pypi": {
+    "checked": true,
+    "latest": "0.1.1",
+    "relation": "same",
+    "error": null
+  },
+  "reproduce": "git clone https://github.com/i2mint/forged && cd forged\ngit checkout 7d2b12a12151b091a7d610fa667853a081b788ab\npip install \"epythet==0.2.23\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "warnings": [],
+  "alignment": {
+    "aligned": true,
+    "notes": []
+  }
+}

@@ -1,0 +1,34 @@
+forged.strings
+==============
+
+.. automodule:: forged.strings
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      args_and_kwargs_indices
+      dict_of_tuple
+      empty_arg_and_kwargs_for_format
+      format_params_in_str_format
+      is_automatic_format_params
+      is_hybrid_format_params
+      is_hybrid_format_string
+      is_manual_format_params
+      is_manual_format_string
+      random_dict_gen
+      random_formatted_str_gen
+      random_string
+      random_tuple_gen
+      random_word
+      random_word_gen
+      tuple_of_dict
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      KeyValidationError
+      NotValid
+   

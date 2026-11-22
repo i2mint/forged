@@ -1,0 +1,12 @@
+forged.drift
+============
+
+.. automodule:: forged.drift
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      simple_shift_drift
+   
