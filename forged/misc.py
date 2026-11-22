@@ -221,6 +221,7 @@ def test_on_blobs(
             f'{model_cls} - {deserialize_model_cls} - {dict(min_accuracy=min_accuracy, **blobs_kwargs)}'
         )
 
+    blobs_kwargs.setdefault('random_state', 0)  # deterministic: doctests must not flake
     X, y = mk_blobs(
         n_samples=n_samples, n_features=n_features, centers=centers, **blobs_kwargs
     )
