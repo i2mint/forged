@@ -1,3 +1,5 @@
+"""Helpers for padding audio waveforms to a given length (via librosa)."""
+
 import numpy as np
 from librosa.util.utils import pad_center
 from librosa.util.exceptions import ParameterError
